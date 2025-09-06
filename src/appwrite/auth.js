@@ -25,20 +25,45 @@ export class AuthService {
     }
     async Login({email, password}) {
         try {
-            return await this.account.createEmailPasswordSession(email, password);
+            if (navigator.onLine) {
+                const lgn = await this.account.createEmailPasswordSession(email, password);
+                console.log(lgn);
+                localStorage.setItem("lgn", JSON.stringify(lgn));
+                return lgn;
+            } else {
+                const localLgn = localStorage.getItem("lgn")
+                if (localLgn) {
+                    return JSON.parse(localLgn)
+                }
+            }
         } catch (error) {
             console.log("appwrite service login error : ", error);
         }
-        return null;
+        
     }
+    
     async getCurrentUser() {
         try {
-            return await this.account.get();
+            if (navigator.onLine) {
+                const user = await this.account.get();
+                localStorage.setItem("user", JSON.stringify(user))
+                return user;
+            } else {
+                const localUser = localStorage.getItem("user")
+                if (localUser) {
+                    return JSON.parse(localUser)
+                }
+            }
         } catch (error) {
             console.log("appwrite service get current user error : ", error);  
-        } 
-        return null;
+        }    
+        // const localUser = localStorage.getItem("user");
+        // if (localUser) {
+        //     return JSON.parse(localUser);
+        // }
     }
+
+    
     async Logout() {
         try {
             return await this.account.deleteSessions();

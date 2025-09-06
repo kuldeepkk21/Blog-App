@@ -10,25 +10,16 @@ function AllPosts() {
     const [posts, setPosts] = useState([])
     useEffect(() => {
         try {
-            if (navigator.onLine) {
-                if (userData) {
-                    service.getPosts(userData.$id).then( (posts) => {
-                        if (posts) {
-                            setPosts(posts.documents)
-                        }
-                    })
-                }
-                localStorage.setItem("posts", JSON.stringify(posts));
-            } else {
-                const localPosts = localStorage.getItem("posts");
-                if (localPosts) {
-                    setPosts(JSON.parse(localPosts));
-                }
+            if (userData) {
+                service.getPosts(userData.$id).then( (posts) => {
+                    if (posts) {
+                        setPosts(posts.documents)
+                    }
+                })
             }
         } catch (error) {
             console.error("Error fetching posts:", error);
         }
-        
     }, [userData])
   return (
     <div className='py-8 w-full'>

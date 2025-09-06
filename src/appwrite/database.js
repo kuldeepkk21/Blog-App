@@ -31,6 +31,7 @@ export class Service {
                 },
             )
             
+            
         } catch (error) {
             console.log( "error", error);
         }
@@ -70,27 +71,46 @@ export class Service {
 
     async getPost(slug) {
         try {
-            return await this.databases.getDocument(
-                config.appwriteDatabaseId,
-                config.appwriteCollectionId,
-                slug
-            )
+            if (navigator.onLine) {
+                const post = await this.databases.getDocument(
+                    config.appwriteDatabaseId,
+                    config.appwriteCollectionId,
+                    slug
+                )
+                localStorage.setItem("post", JSON.stringify(post))
+                return post;
+            } else {
+                const localPost = localStorage.getItem("post")
+                if (localPost) {
+                    return JSON.parse(localPost)
+                }
+            }
         } catch (error) {
             throw error;
         }
     }
 
+
     async getPosts(userData) {
         try {
-            const queries = [
-                Query.equal("status", "active"),
-                Query.equal("userID", userData)
-            ]
-            return await this.databases.listDocuments(
-                config.appwriteDatabaseId,
-                config.appwriteCollectionId,
-                queries   
-            )
+            if (navigator.onLine) {
+                const queries = [
+                    Query.equal("status", "active"),
+                    Query.equal("userID", userData)
+                ]
+                const posts = await this.databases.listDocuments(
+                    config.appwriteDatabaseId,
+                    config.appwriteCollectionId,
+                    queries   
+                )
+                localStorage.setItem("posts", JSON.stringify(posts));
+                return posts;
+            } else {
+                const localPosts = localStorage.getItem("posts");
+                if (localPosts) {
+                    return JSON.parse(localPosts);
+                }
+            }
         } catch (error) {
             console.log( "error", error);
         }
