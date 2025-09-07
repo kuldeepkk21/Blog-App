@@ -1,8 +1,10 @@
 import config from "../config/config.js";
 import { Client, Account, ID } from "appwrite";
 export class AuthService {
+
     client = new Client();
     account;
+
     constructor() {
         this.client
             .setEndpoint(config.appwriteURL)
@@ -23,6 +25,7 @@ export class AuthService {
             console.log("appwrite service create account error : ", error);
         }
     }
+
     async Login({email, password}) {
         try {
             if (navigator.onLine) {
@@ -39,7 +42,6 @@ export class AuthService {
         } catch (error) {
             console.log("appwrite service login error : ", error);
         }
-        
     }
     
     async getCurrentUser() {
@@ -57,13 +59,8 @@ export class AuthService {
         } catch (error) {
             console.log("appwrite service get current user error : ", error);  
         }    
-        // const localUser = localStorage.getItem("user");
-        // if (localUser) {
-        //     return JSON.parse(localUser);
-        // }
     }
 
-    
     async Logout() {
         try {
             return await this.account.deleteSessions();
@@ -72,7 +69,9 @@ export class AuthService {
         }
         return null;
     }
+
 }
+
 const authService = new AuthService();
 export default authService
 

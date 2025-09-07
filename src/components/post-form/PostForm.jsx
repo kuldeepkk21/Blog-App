@@ -21,7 +21,6 @@ function PostForm({...post}) {
     const navigate = useNavigate();
     const userData = useSelector((state) => state.auth.userData);
     
-    
     const submit = async (data) => {
         if ((Object.keys(post).length !== 0)) {
             const file = data.image[0] ? 
@@ -40,14 +39,13 @@ function PostForm({...post}) {
             if (file) {
                 const fileId = file.$id;
                 data.image = fileId;
-
-                const dbPost = await service.createPost({ ...data, userID: userData.$id });
-
+                const dbPost = await service.createPost(
+                    { ...data, userID: userData.$id }
+                )
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
-            }  
-             
+            }      
         }
     }
     
@@ -67,7 +65,6 @@ function PostForm({...post}) {
         })
         return () => subscription.unsubscribe()
     }, [slugTransform, watch, setValue])
-
     
   return (
     <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
@@ -97,15 +94,6 @@ function PostForm({...post}) {
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
                 />
-                {/* {post && (
-                    <div className="w-full mb-4">
-                        <img
-                            src={service.getFileView(post.image)}
-                            alt={post.title}
-                            className="rounded-lg"
-                        />
-                    </div>
-                )} */}
 
                 {(Object.keys(post).length === 0) ? null : (
                     <div className="w-full mb-4">
@@ -123,14 +111,11 @@ function PostForm({...post}) {
                     {...register("status", { required: true })}
                 />
                 <Button type="submit" className="w-full">
-
                     {(Object.keys(post).length === 0) ? "Submit" : "Update"}
                 </Button>
             </div>
         </form>
   )
 }
-
-// bgColor={post ? "bg-green-500" : undefined}
 
 export default PostForm

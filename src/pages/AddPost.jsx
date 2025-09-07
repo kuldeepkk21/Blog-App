@@ -6,26 +6,7 @@ import service from '../appwrite/database'
 import { useParams } from 'react-router-dom'
 
 function AddPost() {
-//   const [post, setPost] = useState(null)
-//   const {slug} = useParams()
-//   const navigate = useNavigate()
-//   useEffect(() => {
-
-//     if (slug) {
-//         service.getPost(slug).then( (post) => {
-//             if (post) {
-//                 setPost(post)
-//             } 
-//             else {
-//                 navigate("/");
-//             }
-//         })
-//     } else {
-//         setPost(null)
-//     }
-//   }, [slug, navigate])
-
-    const post = {}
+  const post = {}
 
   return (
     <div className='py-8'>

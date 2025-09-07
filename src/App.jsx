@@ -30,12 +30,9 @@ function App() {
       <div className='w-full'>
         <Header/>
         <main>
-
           TODO : <Outlet/>
-          
         </main>
         <Footer/>
-
       </div>
     </div>
   ) : null

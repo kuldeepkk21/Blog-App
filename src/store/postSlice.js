@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 const initialState = {
     allPosts: []
 }
@@ -17,6 +18,4 @@ const postSlice = createSlice({
 })
 
 export const {setPosts, addPost} = postSlice.actions;
-
-
 export default postSlice.reducer

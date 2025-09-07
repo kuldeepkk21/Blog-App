@@ -40,14 +40,12 @@ const routeer = createBrowserRouter(
         </AuthLayout>
       } />
       <Route path='/post/:slug' element = {<Post/>} />
-
     </Route>
   )
 )
 
-
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <RouterProvider router={routeer}/>
-  </Provider>,
+  </Provider>
 )

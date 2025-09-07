@@ -26,6 +26,7 @@ function SignUp() {
             setError(error.message)
         }
     }
+
   return (
     <div className="flex items-center justify-center">
         <div className={`mx-auto w-full max-w-lg bg-blue-700 rounded-xl p-10 border border-black/10`}>
@@ -81,7 +82,6 @@ function SignUp() {
                 </div>
             </form>
         </div>
-
     </div>
   )
 }

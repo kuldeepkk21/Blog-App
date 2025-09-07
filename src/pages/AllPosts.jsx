@@ -5,7 +5,6 @@ import service from '../appwrite/database'
 import { useSelector } from 'react-redux'
 
 function AllPosts() {
-
     const userData = useSelector((state) => state.auth.userData);
     const [posts, setPosts] = useState([])
     useEffect(() => {
@@ -21,6 +20,7 @@ function AllPosts() {
             console.error("Error fetching posts:", error);
         }
     }, [userData])
+    
   return (
     <div className='py-8 w-full'>
         <Container>

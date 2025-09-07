@@ -3,11 +3,11 @@ import config from "../config/config";
 import { Client, Databases, Storage, ID, Query } from "appwrite";
 
 export class Service {
+
     client = new Client();
     databases;
     bucket;
 
-    
     constructor() {
         this.client
             .setEndpoint(config.appwriteURL)
@@ -29,9 +29,7 @@ export class Service {
                     status,
                     userID
                 },
-            )
-            
-            
+            )     
         } catch (error) {
             console.log( "error", error);
         }
@@ -90,7 +88,6 @@ export class Service {
         }
     }
 
-
     async getPosts(userData) {
         try {
             if (navigator.onLine) {
@@ -116,7 +113,6 @@ export class Service {
         }
     }
 
-    
     // file upload service
 
     async uploadFile(file) {
@@ -152,9 +148,9 @@ export class Service {
             console.log("kk", error);  
         }
     }
+    
 }
 
 const service = new Service();
 export default service;
-
 
